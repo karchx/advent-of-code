@@ -2,35 +2,55 @@ package main
 
 import (
 	"fmt"
-  "io/ioutil"
-  "strconv"
+	"io"
+	"os"
 )
 
-func main() {
-	urlFile := "../../inputzz/day1.txt"
-  var result []int
+func readFile(nameFile string) []string {
+	var result []string
 
-	byteRead, err := ioutil.ReadFile(urlFile)
+	lengthBuffer := 5
 
+	file, err := os.Open(nameFile)
 	if err != nil {
-		fmt.Printf("Error leyendo el archivo: %v", err)
+		fmt.Printf("Failed open file %s: %v", nameFile, err)
 	}
 
-  for _, byteR := range byteRead {
-    data := string(byteR)
-    i, _ := strconv.Atoi(data)
-    fmt.Printf("%v", i)
-  }
+	defer file.Close()
 
+	bufer := make([]byte, lengthBuffer)
 
-	//var count int = 0
+	for {
+		bytesRead, err := file.Read(bufer)
+		if err != nil {
+			if err != io.EOF {
+				fmt.Printf("Failed read content: %v", err)
+			}
+			break
+		}
 
-	/*for _, number := range content {
+		fragment := string(bufer[:bytesRead])
+		result = append(result, fragment)
+	}
+
+	return result
+}
+
+func main() {
+	file := "../../inputzz/day1.txt"
+
+	result := readFile(file)
+
+	firstNumber := result[0]
+	var count int = 0
+
+	for _, number := range result {
 		if number > firstNumber {
-			count++
 			firstNumber = number
+			count++
 		} else {
-      firstNumber = content[0]
-    }
-	}*/
+			firstNumber = result[0]
+		}
+	}
+	fmt.Print(count)
 }
