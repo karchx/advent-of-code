@@ -9,7 +9,7 @@ using usize = uint32_t;
 
 auto get_data() -> std::vector<int> {
     std::vector<int> result;
-    std::ifstream stream("../../inputzz/day1.txt");
+    std::ifstream stream("../inputzz/day1.txt");
     std::string line;
     while (std::getline(stream, line)) {
         result.push_back(std::stoi(line));

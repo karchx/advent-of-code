@@ -37,7 +37,7 @@ func readFile(nameFile string) []string {
 }
 
 func main() {
-	file := "../../inputzz/day1.txt"
+	file := "../inputzz/day1.txt"
 
 	result := readFile(file)
 
@@ -52,5 +52,5 @@ func main() {
 			firstNumber = result[0]
 		}
 	}
-	//fmt.Print(count)
+	fmt.Print(count)
 }
