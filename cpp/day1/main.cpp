@@ -9,7 +9,7 @@ using usize = uint32_t;
 
 auto get_data() -> std::vector<int> {
     std::vector<int> result;
-    std::ifstream stream("inputs/day1.txt");
+    std::ifstream stream("../../inputzz/day1.txt");
     std::string line;
     while (std::getline(stream, line)) {
         result.push_back(std::stoi(line));
@@ -26,12 +26,13 @@ auto print_data(const std::vector<int>& data) -> void {
 
 
 template<typename Container>  
-requires std::insert_iterator<typename Container::const_iterator>
+  requires std::input_iterator<typename Container::const_iterator>
+
 auto count_greater(const Container &data) -> usize {
     int last = std::numeric_limits<int>::max();
     usize count = 0;
 
-    for (const auto& elem : data) {
+    for (const auto &elem : data) {
         if (last < elem) {
             count++;
         }
@@ -42,7 +43,7 @@ auto count_greater(const Container &data) -> usize {
 
 template<typename InContainer, typename OutContainer>
     requires std::input_iterator<typename InContainer::const_iterator> && std::output_iterator<typename OutContainer::iterator, int>
-auto sum_triplets(const InContainer& input, OutContainer& out) -> void {
+auto sum_triplets(const InContainer &input, OutContainer &out) -> void {
 
     const auto read_end = input.cend();
     const auto write_end = out.end();
@@ -63,9 +64,6 @@ auto main() -> int {
     sum_triplets(data, data);
     data[data.size() - 2] = data[data.size() - 1] = 0;
     std::cout << "Part 2: \n" << count_greater(data) << '\n';
-
-
-
 
     return 0;
 }

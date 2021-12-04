@@ -52,5 +52,5 @@ func main() {
 			firstNumber = result[0]
 		}
 	}
-	fmt.Print(count)
+	//fmt.Print(count)
 }
