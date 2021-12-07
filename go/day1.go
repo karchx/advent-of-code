@@ -6,6 +6,9 @@ import (
 	"os"
 )
 
+
+const file = "../inputzz/day1.txt"
+
 func readFile(nameFile string) []string {
 	var result []string
 
@@ -36,21 +39,27 @@ func readFile(nameFile string) []string {
 	return result
 }
 
-func main() {
-	file := "../inputzz/day1.txt"
+func problem2() {
+  result := readFile(file)
 
+  data := result[0] + result[1] + result [2]
+  fmt.Print(data)
+}
+
+func main() {
 	result := readFile(file)
 
 	firstNumber := result[0]
-	var count int = 0
+  count := 0
 
-	for _, number := range result {
-		if number > firstNumber {
-			firstNumber = number
-			count++
-		} else {
-			firstNumber = result[0]
-		}
-	}
-	fmt.Print(count)
+  for i := 1; i < len(result); i++ {
+    if result [i] > firstNumber {
+      count++
+    }
+
+    firstNumber = result[i]
+  }
+
+  problem2()
+  fmt.Println(count)
 }
