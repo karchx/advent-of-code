@@ -6,7 +6,6 @@ import (
 	"io"
 	"log"
 	"os"
-	"strings"
 )
 
 func ReadFile(nameFile string) []string {
@@ -36,7 +35,7 @@ func ReadFile(nameFile string) []string {
 	return result
 }
 
-func ReadFile2(nameFile string) string {
+func ReadFile2(nameFile string) []string {
 	file, err := os.Open(nameFile)
 	var data []string
 
@@ -53,5 +52,5 @@ func ReadFile2(nameFile string) string {
 	for buffer.Scan() {
 		data = append(data, buffer.Text())
 	}
-	return strings.Join(data, "\n")
+	return data
 }
