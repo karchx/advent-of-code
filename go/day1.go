@@ -2,17 +2,17 @@ package main
 
 import (
 	"fmt"
-	"github.com/KenethSandoval/advent-of-code/utils"
-)
 
+	"github.com/KenethSandoval/advent-of-code/go/utils"
+)
 
 const file = "../inputzz/day1.txt"
 
 func problem2() {
-  result := utils.ReadFile(file)
+	result := utils.ReadFile(file)
 
-  data := result[0] + result[1] + result [2]
-  fmt.Print(data)
+	data := result[0] + result[1] + result[2]
+	fmt.Print(data)
 }
 
 func main() {
@@ -21,13 +21,13 @@ func main() {
 	firstNumber := result[0]
 	count := 0
 
-  for i := 1; i < len(result); i++ {
-    if result [i] > firstNumber {
-      count++
-    }
+	for i := 1; i < len(result); i++ {
+		if result[i] > firstNumber {
+			count++
+		}
 
-    firstNumber = result[i]
-  }
+		firstNumber = result[i]
+	}
 
-  fmt.Println(count)
+	fmt.Println(count)
 }

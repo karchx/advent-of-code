@@ -1,9 +1,12 @@
 package utils
 
 import (
+	"bufio"
 	"fmt"
 	"io"
+	"log"
 	"os"
+	"strings"
 )
 
 func ReadFile(nameFile string) []string {
@@ -31,4 +34,24 @@ func ReadFile(nameFile string) []string {
 		result = append(result, fragment)
 	}
 	return result
+}
+
+func ReadFile2(nameFile string) string {
+	file, err := os.Open(nameFile)
+	var data []string
+
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	defer file.Close()
+
+	//buffer := bufio.NewReader(file)
+	//line, _, err := buffer.ReadLine()
+	buffer := bufio.NewScanner(file)
+
+	for buffer.Scan() {
+		data = append(data, buffer.Text())
+	}
+	return strings.Join(data, "\n")
 }
