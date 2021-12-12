@@ -54,3 +54,13 @@ func ReadFile2(nameFile string) []string {
 	}
 	return data
 }
+
+func ReadFileToStringsSlice(f *os.File)[]string {
+  scanner := bufio.NewScanner(f)
+  slice := make([]string, 0, 100)
+
+  for scanner.Scan() {
+    slice = append(slice, scanner.Text())
+  }
+  return slice
+}
