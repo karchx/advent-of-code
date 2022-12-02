@@ -27,10 +27,28 @@ func main() {
     log.Fatal("failed get input")
   }
   fmt.Printf("p1: %d\n", p1)
+
+  p2, err := parseInputTwo(&buf)
+  if err != nil {
+    log.Fatal("failed get input")
+  }
+  fmt.Printf("p2: %d\n", p2)
 }
 
 func parseInputOne(tee io.Reader) (int, error) {
   return max(calories(tee)), nil
+}
+
+func parseInputTwo(tee io.Reader) (int, error) { 
+
+  caloriesInputs := sliceSort(calories(tee))
+  total := 0
+ 
+  for _, i := range caloriesInputs[len(caloriesInputs)-3:] {
+     total += i
+  }
+
+  return total, nil
 }
 
 func calories(reader io.Reader) []int {
@@ -73,4 +91,15 @@ func max(array []int) int {
   }
 
   return max
+}
+
+func sliceSort(array []int) []int {
+  for i := 0; i < len(array)-1; i++ {
+    for j := 0; j < len(array)-i-1; j++ {
+      if (array[j] > array[j+1]) {
+        array[j], array[j+1] = array[j+1], array[j]
+      }
+    }
+  }
+  return array
 }
