@@ -10,12 +10,12 @@ import (
 )
 
 type Range struct {
-  start int
-  end int
+	start int
+	end   int
 }
 
 func (p Range) len() int {
-  return p.end - p.start
+	return p.end - p.start
 }
 
 func PairsContainsPairs(tee io.Reader) int {
@@ -25,24 +25,28 @@ func PairsContainsPairs(tee io.Reader) int {
 	sum := 0
 
 	for scanner.Scan() {
-    var firstElf, secondElf Range
-   
+		var firstElf, secondElf Range
+		_, err := fmt.Sscanf(scanner.Text(), "%d-%d,%d-%d", &firstElf.start, &firstElf.end, &secondElf.start, &secondElf.end)
 
-    if firstElf.len() < secondElf.len() {
-      tmp := firstElf
-      firstElf = secondElf
-      secondElf = tmp
-    }
+		if err != nil {
+			return 0
+		}
 
-    if firstElf.start <= secondElf.start && firstElf.end >= secondElf.end {
-      sum++
-    }
-  }
-  return sum	
+		if firstElf.len() < secondElf.len() {
+			tmp := firstElf
+			firstElf = secondElf
+			secondElf = tmp
+		}
+
+		if firstElf.start <= secondElf.start && firstElf.end >= secondElf.end {
+			sum++
+		}
+	}
+	return sum
 }
 
 func main() {
-	f, err := os.Open("../inputs/input-test-04")
+	f, err := os.Open("../inputs/input-04")
 	if err != nil {
 		log.Fatal("failed to open file")
 	}
