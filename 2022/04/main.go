@@ -45,6 +45,33 @@ func PairsContainsPairs(tee io.Reader) int {
 	return sum
 }
 
+func PairsOverlap(tee io.Reader) int {
+	scanner := bufio.NewScanner(tee)
+	scanner.Split(bufio.ScanLines)
+
+	sum := 0
+
+	for scanner.Scan() {
+		var firstElf, secondElf Range
+		_, err := fmt.Sscanf(scanner.Text(), "%d-%d,%d-%d", &firstElf.start, &firstElf.end, &secondElf.start, &secondElf.end)
+
+		if err != nil {
+			return 0
+		}
+
+		if firstElf.len() < secondElf.len() {
+			tmp := firstElf
+			firstElf = secondElf
+			secondElf = tmp
+		}
+
+		if firstElf.start <= secondElf.start && firstElf.end >= secondElf.end || firstElf.start <= secondElf.end && firstElf.end >= secondElf.start {
+			sum++
+		}
+	}
+	return sum
+}
+
 func main() {
 	f, err := os.Open("../inputs/input-04")
 	if err != nil {
@@ -59,6 +86,6 @@ func main() {
 	total := PairsContainsPairs(tee)
 	fmt.Printf("Part 01: %d\n", total)
 
-	//sum2 := OrganizeBadgets(&buf)
-	//fmt.Printf("Part 02: %d\n", &)
+	total2 := PairsOverlap(&buf) 
+	fmt.Printf("Part 02: %d\n", total2)
 }
