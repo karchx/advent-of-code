@@ -1,8 +1,16 @@
-use crate::utils::read;
-
+mod days;
 mod utils;
 
+use crate::utils::read;
+
 fn main() {
-    let path = read(1, 2023);
-    println!("Path {:?}", path);
+    let data = read(1, 2023);
+
+    let lines = data
+        .lines()
+        .collect::<Vec<_>>();
+
+    for ele in lines {
+        println!("{}", ele);
+    }
 }

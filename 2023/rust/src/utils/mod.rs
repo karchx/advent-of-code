@@ -1,4 +1,4 @@
-use std::{process::Command, fs};
+use std::{fs, process::Command};
 
 pub fn read(day: u32, year: u32) -> String {
     let root_dir = top_folder();
