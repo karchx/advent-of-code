@@ -47,6 +47,7 @@ impl Solution for Day1 {
         let p1 = self.trebuchet_partone(&input);
         let p2 = self.trebuchet_parttwo(&input);
 
+        println!("{}", self.name().to_uppercase());
         println!("Part 1 {p1}");
         println!("Part 2 {p2}");
     }
