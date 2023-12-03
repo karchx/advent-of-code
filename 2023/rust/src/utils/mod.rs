@@ -1,8 +1,14 @@
 use std::{fs, process::Command};
 
-pub fn read(day: u32, year: u32) -> String {
+pub fn read(day: u32, year: u32, debug: Option<bool>) -> String {
     let root_dir = top_folder();
-    let path = format!("{}/{}/inputs/day{:02}.txt", root_dir, year, day);
+    let path: String;
+
+    if debug.unwrap_or(false) {
+        path = format!("{}/{}/inputs/day{:02}-test.txt", root_dir, year, day);
+    } else {
+        path = format!("{}/{}/inputs/day{:02}.txt", root_dir, year, day);
+    }
     fs::read_to_string(path).expect("Unable to read file")
 }
 
