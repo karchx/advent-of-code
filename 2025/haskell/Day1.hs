@@ -1,5 +1,5 @@
-module Day1 (parse, gcZero, applyGC, filterSecret) where
-import Data.List (isInfixOf)
+module Day1 (parse, solve1, solve2) where
+import Data.List (isInfixOf, mapAccumL)
 
 splitChar :: Char -> String -> [String]
 splitChar _ [] = [""]
@@ -39,5 +39,25 @@ applyGC base xs = scanl step base xs
         step acc x = dialValidate (acc + x)
 
 
-filterSecret :: [Int] -> Int
-filterSecret result = length $ (filter (\x -> x == 0) result)
+zeros :: [Int] -> [Int]
+zeros = filter (== 0)
+
+solve1 :: [String] -> [Int]
+solve1 input = zeros $ applyGC 50 (gcZero input)
+
+solve2 :: [String] -> Int
+solve2 input = solve2' $ gcZero input
+
+solve2' :: [Int] -> Int
+solve2' = sum . snd . mapAccumL turn2 50
+
+turn :: Int -> Int -> Int
+turn a b = (a + b) `mod` 100
+
+zeros' :: Int -> Int -> Int
+zeros' a b
+    | b > 0 = (a+b) `div` 100
+    | otherwise = (a+b) `div` (-100) - a `div` (-100)
+
+turn2 :: Int -> Int -> (Int, Int)
+turn2 a b = (turn a b, zeros' a b)

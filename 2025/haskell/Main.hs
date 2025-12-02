@@ -1,8 +1,8 @@
 module Main where
-import Day1 (parse, gcZero, applyGC, filterSecret)
+import Day1 (parse, solve1, solve2)
 
 
 main :: IO()
 main = do
     rawInput <- readFile "../input/day01.txt"
-    print $ filterSecret $ applyGC 50 (gcZero $ parse rawInput)
+    print $ length $ solve2 (parse rawInput)
